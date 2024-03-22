@@ -1,274 +1,142 @@
-import React, { useEffect, useRef } from 'react';
-import ForceGraph2D from 'react-force-graph-2d';
-import './App.css';
+import React, { useState } from 'react';
+import { render } from 'react-dom';
+import HighchartsReact from 'highcharts-react-official';
+import Highcharts from 'highcharts';
+import HCMore from 'highcharts/highcharts-more';
+HCMore(Highcharts);
+
+const App = () => {
+
+ const calculateHeight=()=>{
+    return window.innerHeight - 50;
+  }
+
+  const [chartOptions, setChartOptions] = useState({
+
+      chart: {
+        type: "packedbubble",
+        height: calculateHeight(),
+      },
+      // tooltip: {
+      //   useHTML: true,
+      //   pointFormat: "<b>{point.name}:</b> {point.value}",
+      // },
+      plotOptions: {
+        packedbubble: {
+          minSize: "30%",
+          maxSize: "+80%",
+          //zMin: 0,
+          //zMax: 1000,
+          layoutAlgorithm: {
+            splitSeries: false,
+            gravitationalConstant: 0.01,
+          },
+          dataLabels: {
+            enabled: true,
+            useHTML: true,
+            formatter: function () {
+              return (
+                "<div class='container'>"+
+                this.point.name +
+                `<img class='rounded' src=${this.point.url} width='150' height='150'/>`+
+                "<div class='percentage-container'>"+this.point.percentage+'</div>'+
+                "</div>"
+              );
+            },
+            parentNodeFormat: "{point.series.name}",
+          },
+        },
+      },
+      series: [
+        {
+          name: "ASEAN",
+          data: [
+            {
+              name: "ASEAN",
+              value: -88.2,
+              percentage:'+80%',
+              url:"https://cryptobubbles.net/backend/data/logos/25417.png"
+            },
+          ],
+        },
+        {
+          name: "KOR ",
+          data: [
+            {
+              name: "KOR",
+              value: -605.2,
+              percentage:'+80%',
+              url:"https://cryptobubbles.net/backend/data/logos/1680.png"
+            },
+          ],
+        },
+        {
+          name: "CHN ",
+          data: [
+            {
+              name: "CHN",
+              value: -427233.7,
+              percentage:'+80%',
+              url:"https://cryptobubbles.net/backend/data/logos/29920.png"
+            },
+          ],
+        },
+        {
+          name: "ISA ",
+          data: [
+            {
+              name: "ISA",
+              value: -355.39,
+              percentage:'+80%',
+              url:"https://cryptobubbles.net/backend/data/logos/1168.png"
+            },
+          ],
+        },
+        {
+          name: "ANZ ",
+          data: [
+            {
+              name: "ANZ ",
+              value: -3331.4,
+              percentage:'+80%',
+              url:"https://cryptobubbles.net/backend/data/logos/5034.png"
+            },
+          ],
+        },
+        // {
+        //   name: "JP ",
+        //   data: [
+        //     {
+        //       name: "JP1",
+        //       value: -22470857.0,
+        //       percentage:'+80%',
+        //       url:"https://cryptobubbles.net/backend/data/logos/24600.png"
+        //     },
+        //     {
+        //       name: "JP2",
+        //       value: -21470857.0,
+        //       percentage:'+80%',
+        //       url:"https://cryptobubbles.net/backend/data/logos/28541.png"
+        //     },
+        //   ],
+        // },
+      ],
+
+   
+  });
 
 
-function App() {
 
-    const graphData=
-    {
-        "nodes": [
-            {
-                "id": "1",
-                "name": "1",
-                "isClusterNode": true,
-                "val": 20, 
-                "color":"rgb(230, 178, 46)",
-                "opacity":1
-            },
-            {
-                "id": "2",
-                "name": "2",
-                "isClusterNode": true,
-                "val": 15,
-                "color":"rgb(230, 178, 46)",
-            },
-            {
-                "id": "3",
-                "name": "3",
-                "isClusterNode": true,
-                "val": 7,
-                "color":"rgb(230, 178, 46)",
-            },
-            {
-                "id": "4",
-                "name": "test",
-                "isClusterNode": true,
-                "val": 19
-            },
-            {
-                "id": "5",
-                "name": "test",
-                "isClusterNode": true,
-                "val": 7
-            },
-            {
-                "id": "6",
-                "name": "test",
-                "isClusterNode": true,
-                "val": 15
-            },
-            {
-                "id": "7",
-                "name": "test",
-                "isClusterNode": true,
-                "val": 6
-            },
-            {
-                "id": "8",
-                "name": "test",
-                "isClusterNode": true,
-                "val": 12
-            },
-            {
-                "id": "9",
-                "name": "test",
-                "isClusterNode": true,
-                "val": 6
-            },
-            {
-                "id": "10",
-                "name": "test",
-                "isClusterNode": true,
-                "val": 17
-            },
-            {
-                "id": "11",
-                "name": "test",
-                "isClusterNode": true,
-                "val": 9
-            },
-            {
-                "id": "12",
-                "name": "test",
-                "isClusterNode": true,
-                "val": 18
-            },
-            {
-                "id": "13",
-                "name": "test",
-                "isClusterNode": true,
-                "val": 12
-            },
-            {
-                "id": "14",
-                "name": "test",
-                "isClusterNode": true,
-                "val": 9
-            },
-            {
-                "id": "15",
-                "name": "test",
-                "isClusterNode": true,
-                "val": 13
-            },
-            {
-                "id": "16",
-                "name": "test",
-                "isClusterNode": true,
-                "val": 18
-            },
-            {
-                "id": "17",
-                "name": "test",
-                "isClusterNode": true,
-                "val": 10
-            },
-            {
-                "id": "18",
-                "name": "test",
-                "isClusterNode": true,
-                "val": 20
-            },
-            {
-                "id": "19",
-                "name": "test",
-                "isClusterNode": true,
-                "val": 10
-            },
-            {
-                "id": "20",
-                "name": "test",
-                "isClusterNode": true,
-                "val": 8
-            },
-            {
-                "id": "21",
-                "name": "test",
-                "isClusterNode": true,
-                "val": 7
-            },
-            {
-                "id": "22",
-                "name": "test",
-                "isClusterNode": true,
-                "val": 8
-            },
-            {
-                "id": "23",
-                "name": "test",
-                "isClusterNode": true,
-                "val": 10
-            },
-            {
-                "id": "24",
-                "name": "test",
-                "isClusterNode": true,
-                "val": 14
-            },
-            {
-                "id": "25",
-                "name": "test",
-                "isClusterNode": true,
-                "val": 16
-            },
-            {
-                "id": "26",
-                "name": "test",
-                "isClusterNode": true,
-                "val": 17
-            },
-            {
-                "id": "27",
-                "name": "test",
-                "isClusterNode": true,
-                "val": 7
-            },
-            {
-                "id": "28",
-                "name": "test",
-                "isClusterNode": true,
-                "val": 9
-            },
-            {
-                "id": "29",
-                "name": "test",
-                "isClusterNode": true,
-                "val": 8
-            },
-            {
-                "id": "30",
-                "name": "test",
-                "isClusterNode": true,
-                "val": 12
-            },
-            {
-                "id": "31",
-                "name": "test",
-                "isClusterNode": true,
-                "val": 14
-            },
-            {
-                "id": "32",
-                "name": "test",
-                "isClusterNode": true,
-                "val": 13
-            },
-            {
-                "id": "33",
-                "name": "test",
-                "isClusterNode": true,
-                "val": 18
-            },
-            {
-                "id": "34",
-                "name": "test",
-                "isClusterNode": true,
-            }
-        ],
-        "links":[
-            {
-                source:'1',
-                target:'2',
-                value:0,
-            },
-            {
-                source:'1',
-                target:'3',
-                value:12,
-            },
-            {
-                source:'3',
-                target:'2',
-                value:18,
-            }
-        ]
-    }
 
-    const ref = useRef()
-
-    useEffect(() => {
-    }, []);
-
-    return (
-        <div>
-            <ForceGraph2D
-            ref={ref}
-            graphData={graphData}
-            backgroundColor='#0E061A'
-            nodeCanvasObjectMode={() => "after"}
-            linkAutoColorBy='#fff'
-            zoomToFit={()=>2}
-            nodeCanvasObject={(node, ctx, globalScale) => {
-              const fontSize = 12 / globalScale;
-              ctx.font = `${fontSize}px Sans-Serif`;
-              ctx.textAlign = "center";
-              ctx.textBaseline = "middle";
-              ctx.fillStyle = "black"; //node.color;
-            }}
-            onNodeClick={(node,event)=>{
-              console.log(node)
-            }}
-            autoPauseRedraw={true}
-            enableNodeDrag={true}
-            linkDirectionalParticleColor={() => "red"}
-            linkDirectionalParticleWidth={6}
-            linkHoverPrecision={10}
-            linkDirectionalArrowLength={2}
-            nodeVisibility={(node) => node.id !== "0"}
-          />
-        </div>
-    );
+  return (
+      <div>
+        <HighchartsReact
+          height={'500px'}
+          highcharts={Highcharts}
+          options={chartOptions}
+        />
+      </div>
+    )
 }
 
-export default App;
+export default App
