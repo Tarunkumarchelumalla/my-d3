@@ -17,14 +17,17 @@ code {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 100%;
+  width: var(--width);
+  height: var(--width);
   gap: 10px;
   font-size: 25px;
 }
-
 .rounded{
   border-radius: 50%;
+  
 }
+
 .percentage-container{
   font-size: 60px;
 }
+

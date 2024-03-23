@@ -11,9 +11,26 @@ const App = () => {
     return window.innerHeight - 50;
   }
 
-  const handleClick=(event)=>{
-    console.log(event)
+  const getLogoWidth=(point)=>{
+    
+    return point.radius > 22 ? 44 : point.radius/1.2;
+
   }
+
+  const showPointName =(point)=>{
+    return point.radius > 22 ?true:false
+  }
+
+
+  const getLogoHeight=(point)=>{
+    return point.radius > 22 ? 44 : point.radius/1.2;
+  }
+
+//   const getWidth=(point)=>{
+//     console.log(point.radius*2 + 'px')
+//     return `${point.radius*2 }`+ 'px'
+//   }
+
 
   const [chartOptions, setChartOptions] = useState({
 
@@ -29,7 +46,7 @@ const App = () => {
         packedbubble: {
           minSize: '100%',
           maxSize: '120%',  
-          opacity:0.6,
+          opacity:1,
             point:{
                 events:{
                     click:function handleClick(event){
@@ -57,15 +74,17 @@ const App = () => {
             useHTML: true,
             allowOverlap:true,
             formatter: function () {
-              return (
-                "<div class='container'>"+
-                this.point.name +
-                `<img class='rounded' src=${this.point.url} width='60' height='60'/>`+
-               
-                "</div>"
-              );
+                return (
+                    // `<div class='container'>` +
+                    // showPointName(this.point) ? this.point.symbol : null +
+                    // `<img class='rounded' src="${this.point.url}" width="${getLogoWidth(this.point)}" height="${getLogoHeight(this.point)}"/>` +
+                    // "</div>"
+                    `<div class='container'> ${showPointName(this.point) ? this.point.symbol : ''}
+                    <img class='rounded' src="${this.point.url}" width="${getLogoWidth(this.point)}" height="${getLogoHeight(this.point)}"/>
+                    </div>`
+                );
+
             },
-            parentNodeFormat: "{point.series.name}",
           },
         },
       },
@@ -74,24 +93,6 @@ const App = () => {
           name: "ASEAN",
           data: data,
         },
-
-        // {
-        //   name: "JP ",
-        //   data: [
-        //     {
-        //       name: "JP1",
-        //       value: -22470857.0,
-        //       percentage:'+80%',
-        //       url:"https://cryptobubbles.net/backend/data/logos/24600.png"
-        //     },
-        //     {
-        //       name: "JP2",
-        //       value: -21470857.0,
-        //       percentage:'+80%',
-        //       url:"https://cryptobubbles.net/backend/data/logos/28541.png"
-        //     },
-        //   ],
-        // },
       ],
 
    
