@@ -12,21 +12,27 @@ const App = () => {
   }
 
   const getLogoWidth=(point)=>{
-    
-    return point.radius > 22 ? 44 : point.radius/1.2;
+    calculateFontSize(point)
+    return point.radius > 30 ? 44 : point.radius/1.5;
 
   }
 
   const showPointName =(point)=>{
-    return point.radius > 22 ?true:false
+    return true
   }
+
+  const calculateFontSize = (point) => {
+    let element = document.getElementById(point.id);
+    if (!element) return;
+    element.style.fontSize = (point.radius / 2) + 'px';
+}
 
 
   const getLogoHeight=(point)=>{
-    return point.radius > 22 ? 44 : point.radius/1.2;
+    return point.radius > 30 ? 44 : point.radius/1.5;
   }
 
-//   const getWidth=(point)=>{
+//   const getWidth=(point)=>
 //     console.log(point.radius*2 + 'px')
 //     return `${point.radius*2 }`+ 'px'
 //   }
@@ -37,16 +43,22 @@ const App = () => {
       chart: {
         type: "packedbubble",
         height: calculateHeight(),
+        title:{
+            enabled:false
+        }
       },
-      // tooltip: {
-      //   useHTML: true,
-      //   pointFormat: "<b>{point.name}:</b> {point.value}",
-      // },
+      tooltip: {
+       enabled:false
+      },
       plotOptions: {
         packedbubble: {
-          minSize: '100%',
+          minSize: '60%',
           maxSize: '120%',  
           opacity:1,
+          showInLegend:false,
+          label:{
+            enabled:false
+          },
             point:{
                 events:{
                     click:function handleClick(event){
@@ -58,9 +70,6 @@ const App = () => {
           layoutAlgorithm: {
             splitSeries: false,
             gravitationalConstant: 0.001,
-            seriesInteraction: false,
-            dragBetweenSeries: false,
-            parentNodeLimit: true,
             enableSimulation:true,
             bubblePadding:20
           },
@@ -72,6 +81,7 @@ const App = () => {
           dataLabels: {
             enabled: true,
             useHTML: true,
+            jitter:false,
             allowOverlap:true,
             formatter: function () {
                 return (
@@ -79,8 +89,10 @@ const App = () => {
                     // showPointName(this.point) ? this.point.symbol : null +
                     // `<img class='rounded' src="${this.point.url}" width="${getLogoWidth(this.point)}" height="${getLogoHeight(this.point)}"/>` +
                     // "</div>"
-                    `<div class='container'> ${showPointName(this.point) ? this.point.symbol : ''}
+                    `<div class='container' id=${this.point.id}>
                     <img class='rounded' src="${this.point.url}" width="${getLogoWidth(this.point)}" height="${getLogoHeight(this.point)}"/>
+                    ${showPointName(this.point) ? this.point.symbol : ''}
+                    
                     </div>`
                 );
 

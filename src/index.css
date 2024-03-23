@@ -17,10 +17,8 @@ code {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: var(--width);
-  height: var(--width);
-  gap: 10px;
-  font-size: 25px;
+  height: 100%;
+  width: 100%;
 }
 .rounded{
   border-radius: 50%;
