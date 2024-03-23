@@ -11,6 +11,10 @@ const App = () => {
     return window.innerHeight - 50;
   }
 
+  const handleClick=(event)=>{
+    console.log(event)
+  }
+
   const [chartOptions, setChartOptions] = useState({
 
       chart: {
@@ -25,14 +29,23 @@ const App = () => {
         packedbubble: {
           minSize: '100%',
           maxSize: '120%',  
-  
+          opacity:0.6,
+            point:{
+                events:{
+                    click:function handleClick(event){
+                        console.log(event)
+                    },
+                }
+            },
+            
           layoutAlgorithm: {
             splitSeries: false,
-            gravitationalConstant: 0,
+            gravitationalConstant: 0.001,
             seriesInteraction: false,
             dragBetweenSeries: false,
             parentNodeLimit: true,
-            enableSimulation:true
+            enableSimulation:true,
+            bubblePadding:20
           },
           states:{
             hover:{
