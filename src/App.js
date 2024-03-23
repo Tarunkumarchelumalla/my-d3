@@ -25,10 +25,6 @@ const App = () => {
         packedbubble: {
           minSize: '100%',
           maxSize: '120%',  
-
-          series:{
-            animation:false
-          },
   
           layoutAlgorithm: {
             splitSeries: false,
