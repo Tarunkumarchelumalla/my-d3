@@ -13,23 +13,23 @@ const App = () => {
 
   const getLogoWidth=(point)=>{
     calculateFontSize(point)
-    return point.radius > 30 ? 44 : point.radius/1.5;
+    return point.radius > 33 ? 44 : point.radius;
 
   }
 
   const showPointName =(point)=>{
-    return true
+    return point.radius < 22 ? false : true
   }
 
   const calculateFontSize = (point) => {
     let element = document.getElementById(point.id);
     if (!element) return;
-    element.style.fontSize = (point.radius / 2) + 'px';
+    element.style.fontSize = (point.radius / 3) + 'px';
 }
 
 
   const getLogoHeight=(point)=>{
-    return point.radius > 30 ? 44 : point.radius/1.5;
+    return point.radius > 33 ? 44 : point.radius;
   }
 
 //   const getWidth=(point)=>
@@ -52,8 +52,8 @@ const App = () => {
       },
       plotOptions: {
         packedbubble: {
-          minSize: '70%',
-          maxSize: '150%',  
+          minSize: '35%',
+          maxSize: '100%',
           opacity:1,
           showInLegend:false,
           label:{
@@ -69,7 +69,7 @@ const App = () => {
             
           layoutAlgorithm: {
             splitSeries: false,
-            gravitationalConstant: 0.0001,
+            gravitationalConstant: 0.001,
             enableSimulation:true,
             bubblePadding:20
           },
