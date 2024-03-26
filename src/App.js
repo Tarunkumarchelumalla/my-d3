@@ -52,8 +52,8 @@ const App = () => {
       },
       plotOptions: {
         packedbubble: {
-          minSize: '60%',
-          maxSize: '120%',  
+          minSize: '70%',
+          maxSize: '150%',  
           opacity:1,
           showInLegend:false,
           label:{
@@ -69,7 +69,7 @@ const App = () => {
             
           layoutAlgorithm: {
             splitSeries: false,
-            gravitationalConstant: 0.001,
+            gravitationalConstant: 0.0001,
             enableSimulation:true,
             bubblePadding:20
           },
